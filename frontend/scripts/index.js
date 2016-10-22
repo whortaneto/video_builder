@@ -20,17 +20,17 @@ let loadLessons = (api) => {
 let fillDataTable = (domTbleBody, data) => {
   data.forEach(item => {
     let tr = domTbleBody.insertRow();
+    tr.align = 'center';
 
     tr.onclick = () => {
       if (document.querySelector('.clickedRow')) {
         document.querySelector('.clickedRow').classList.remove("clickedRow")
       }
       tr.classList.add('clickedRow');
-      console.log(item.urlVideo);
+      document.location.href = 'edit.html?lesson=' + item._id;
     }
 
-    tr.align = 'center';
-    let i =0;;
+    let i =0;
     tr.insertCell(i++).innerText = item._id;
     tr.insertCell(i++).innerText = item.urlVideo;
 
