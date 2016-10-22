@@ -1,3 +1,5 @@
+var CourseBuilder = CourseBuilder || {};
+
 CourseBuilder.questionModal = (function () {
 	return function () {
 
@@ -57,10 +59,11 @@ CourseBuilder.questionModal = (function () {
 
 		}
 
-		const _setValue = ({question, choices}, callback) => {
+		const _setValue = ({question, choices, index}, callback) => {
 			if(!!questionContainer) {
-				questionContainer.innerHTML = '';
-				answerContainer.innerHTML = '';
+				value  = {question, choices, index};
+
+				_cleanQuestion();
 				questionContainer.appendChild(document.createTextNode(question));
 
 				const len = choices.length;
@@ -75,7 +78,7 @@ CourseBuilder.questionModal = (function () {
 					choiceRadio.name = "choices";
 					choiceRadio.value = choices[i].text;
 
-					if (choices[i].isCorrect) {
+					if (choices[i].isCorrect && !!callback) {
 						choiceRadio.addEventListener("change", () => {
 							callback();
 						})
@@ -85,6 +88,17 @@ CourseBuilder.questionModal = (function () {
 				}
 			}
 		};
+
+		const _getValue = () => value;
+
+		const _cleanQuestion = () => {
+			while (questionContainer.firstChild) {
+				questionContainer.firstChild.remove();
+			}
+			while (answerContainer.firstChild) {
+				answerContainer.firstChild.remove();
+			}
+		}
 
 		const _show = () => container.style.display = "block";
 
@@ -98,6 +112,7 @@ CourseBuilder.questionModal = (function () {
 
 		return {
 			setValue: _setValue,
+			getValue: _getValue,
 			show: _show,
 			onClose: _onClose,
 			setContainer: _setContainer,

@@ -1,12 +1,12 @@
-const CourseBuilder = {};
+var CourseBuilder = CourseBuilder || {};
 
 CourseBuilder.videoWrapper = (function () {
-    const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    tag.asyn = true;
+    const youtubeApi = document.createElement('script');
+    youtubeApi.src = "https://www.youtube.com/iframe_api";
+    youtubeApi.asyn = true;
 
     const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    firstScriptTag.parentNode.insertBefore(youtubeApi, firstScriptTag);
 
     return function (container, height, width, url) {
         let _player = null;
@@ -56,13 +56,13 @@ CourseBuilder.videoWrapper = (function () {
 
         const _getCurrentTime = () =>  _player.getCurrentTime();
 
-        const _setListenEvents = value => listenToEvents = value;
+        const _setListenTimers = value => listenToEvents = value;
 
         return {
             getCurrentTime: _getCurrentTime,
             addTimeListener: _addTimeListener,
             getTimers: _getTimers,
-            setListenEvents: _setListenEvents,
+            setListenTimers: _setListenTimers,
             pauseVideo: _pauseVideo,
             playVideo: _playVideo,
         }
