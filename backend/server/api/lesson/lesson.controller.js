@@ -25,8 +25,9 @@ exports.get = function(req, resp, next) {
 
 // Creates a new lesson in the DB.
 exports.create = function(req, resp, next) {
+    //console.log(JSON.stringify(req));
     Lesson.create(_.merge(req.body, {        
-        urlVideo: req.urlVideo
+        //urlVideo: req.urlVideo
     })).then(lesson => {
         resp.status(201).send(lesson);
     }).catch(next);
