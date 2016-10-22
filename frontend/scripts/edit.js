@@ -24,10 +24,7 @@ window.onload = () => {
 }
 
 let loadLesson = (id) => {
-  fetch(API_URL+'/'+id)
-    .then(function(response) {
-      return response.json();
-    })
+  lessonService.get(id)
     .then(function(result) {
       fillInputs(result);
     });
@@ -43,27 +40,7 @@ let save = () => {
   lesson.urlVideo = document.querySelector('#urlVideo').value;
 
   let requestBody = JSON.stringify(lesson);
-
-  if(lesson._id==undefined || lesson._id=='') {
-    fetch(API_URL, {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Content-Length': requestBody.length
-      }),
-      body: requestBody
-    });
-  } else {
-    fetch(API_URL+'/'+lesson._id, {
-      method: 'PATCH',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Content-Length': requestBody.length
-      }),
-      body: requestBody
-    });
-  }
-
+  lessonService.save(requestBody);
 }
 
 let back = () => {
