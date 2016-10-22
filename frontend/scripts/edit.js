@@ -35,12 +35,11 @@ let loadLesson = (id) => {
 
 let fillInputs = (data) => {
   lesson = data;
-  document.querySelector('#_id').value = data._id;
-  document.querySelector('#urlVideo').value = data.urlVideo;
+  document.querySelector('#_id').value = lesson._id;
+  document.querySelector('#urlVideo').value = lesson.urlVideo;
 }
 
 let save = () => {
- // lesson._id = document.querySelector('#_id').value;
   lesson.urlVideo = document.querySelector('#urlVideo').value;
 
   let requestBody = JSON.stringify(lesson);
@@ -56,8 +55,9 @@ let save = () => {
     });
   } else {
     fetch(API_URL+'/'+lesson._id, {
-      method: 'patch',
+      method: 'PATCH',
       headers: new Headers({
+        'Content-Type': 'application/json',
         'Content-Length': requestBody.length
       }),
       body: requestBody
