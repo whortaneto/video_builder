@@ -25,24 +25,24 @@ exports.get = function(req, resp, next) {
 
 // Creates a new lesson in the DB.
 exports.create = function(req, resp, next) {
-    Lesson.create(_.merge(req.body, {        
-        urlVideo: req.urlVideo
+    console.log(req.body);
+    Lesson.create(_.merge(req.body, {
     })).then(lesson => {
         resp.status(201).send(lesson);
     }).catch(next);
 };
 
 // Updates an existing lesson in the DB.
-exports.update = function(req, resp) {
-
+exports.update = function(req, resp, next) {
+    console.log(" updater");
+    console.log(req.body);
     delete req.body._id;
-    body.lastModifiedBy = req.user.username;
     Lesson.findById(req.params.id).then(lesson => {
 
         if(!lesson) {
             throw new errors.NotFound('lesson_not_found')
         }
-        var updated = _.merge(lesson, req.body);
+        var updated = _.assign(lesson, req.body);
         updated.save()
     }).then(lesson => {
         resp.status(200).send(lesson);
