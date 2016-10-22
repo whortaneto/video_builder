@@ -1,20 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Video Builder</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Video Builder</title>
 
-    <link rel="stylesheet" type="text/css" href="styles/edit.css">
+        <link rel="stylesheet" type="text/css" href="styles/edit.css">
 
-    <script type="text/javascript" src="scripts/lesson.service.js" ></script>
-    <script type="text/javascript" src="scripts/edit.js" ></script>
-</head>
-    Id<br/>
-    <input readonly id="_id" /><br/>
-    URL<br/>
-    <input id="urlVideo" /><br/>
+        <script type="text/javascript" src="scripts/lesson.service.js" ></script>
+        <script type="text/javascript" src="scripts/edit.js" ></script>
+    </head>
 
-    <button onclick="save()">Save</button>
-    <button onclick="back()">Back</button>
-</body>
+    <body>
+        Id<br/>
+        <input readonly id="_id" /><br/>
+        URL<br/> 
+        <input id="urlVideo" /><br/>
+
+        <br/><br/>
+        <div style="border:1px solid black;">
+            Time<br/>
+            <input id="time" type="number"/><br/>
+            Question<br/>
+            <input id="question" type="text"/><br/>
+
+            <div style="border:1px solid black;">
+                Answer<br/>
+                <input id="answer" type="text"/><br/>
+                Is Correct?<br/>
+                <input id="isCorrect" type="boolean"/><br/>
+                <button onclick="addAnswer()" >Add Answer</button>
+                <br/>
+
+                <table id="answersTable" style="width:100%" class="datatable">
+                    <thead>
+                        <th>Answer</th>
+                        <th>Correct</th>
+                    </thead>
+                    <tbody id="tbody">
+                        
+                    </tbody>
+                </table>                 
+            </div>            
+
+            <button onclick="addQuestion()">Add Question</button>
+
+            <br/>
+
+            <table id="questionsTable" style="width:100%" class="datatable">
+                <thead>
+                    <th>Time</th>
+                    <th>Question</th>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>        
+        </div
+
+        <br/>
+        <br/>
+        <button onclick="save()">Save</button>
+        <button onclick="back()">Back</button>
+    </body>
 </html>

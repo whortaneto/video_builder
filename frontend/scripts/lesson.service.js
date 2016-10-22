@@ -1,9 +1,12 @@
 function LessonService() {
   const API_URL = "http://localhost:9000/api/lessons";
 
-  this.save = (requestBody) => {
+  this.save = (lesson) => {
+
+    let requestBody = JSON.stringify(lesson);
+
     if(lesson._id==undefined || lesson._id=='') {
-      fetch(API_URL, {
+      return fetch(API_URL, {
         method: 'POST',
         headers: new Headers({
           'Content-Type': 'application/json',
@@ -12,7 +15,7 @@ function LessonService() {
         body: requestBody
       });
     } else {
-      fetch(API_URL+'/'+lesson._id, {
+      return fetch(API_URL+'/'+lesson._id, {
         method: 'PATCH',
         headers: new Headers({
           'Content-Type': 'application/json',
