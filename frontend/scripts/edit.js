@@ -28,6 +28,7 @@ function EditService() {
 
   this.addQuestion = () => {
     let questionParam = {
+      _id: document.querySelector('#_idQuestion').value,
       index: document.querySelector('#index').value,
       time: document.querySelector('#time').value,
       question: document.querySelector('#question').value,
@@ -39,9 +40,22 @@ function EditService() {
       return;
     }
 
-    lesson.questions.push(questionParam);
+    if (questionParam._id == undefined || questionParam._id == '') {
+      lesson.questions.push(questionParam);
+      addQuestionRow(questionParam, document.querySelector('#questionsTable > tbody'));
+    } else {
+      //atualizar item do array
 
-    addQuestionRow(questionParam, document.querySelector('#questionsTable > tbody'));
+      let index;
+      lesson.questions.forEach(item => {
+        if (item._id === questionParam._id) {
+          index = lesson.questions.indexOf(item);
+        }
+      });
+
+      lesson.questions.splice(index, 1);
+      lesson.questions.push(questionParam);
+    }
 
     document.querySelector('#time').value = ''
     document.querySelector('#question').value = '';
@@ -90,42 +104,43 @@ function EditService() {
     fillQuestionDataTable(document.querySelector('#questionsTable'), lesson.questions);
   }
 
-  let fillAnswers = (answers) => {
-    fillAnswerDataTable(document.querySelector('#answersTable'), answers);
-  }
-
   let fillQuestionDataTable = (domTbleBody, data) => {
     data.forEach(item => {
       addQuestionRow(item, domTbleBody);
     });
   }
 
-  let addQuestionRow = (question, domTbleBody) => {
+  let addQuestionRow = (questionParam, domTbleBody) => {
     let tr = domTbleBody.insertRow();
     tr.align = 'center';
 
     let remove = () => {
-      let index = lesson.questions.indexOf(question);
+      let index = lesson.questions.indexOf(questionParam);
       lesson.questions.splice(index, 1);
       tr.remove();
     };
 
+    let edit = () => {
+      document.querySelector('#_idQuestion').value = questionParam._id;
+      document.querySelector('#index').value = questionParam.index;
+      document.querySelector('#time').value = questionParam.time;
+      document.querySelector('#question').value = questionParam.question;   
+
+      question = questionParam;
+
+      clearTable(document.querySelector('#answersTable > tbody'));
+      fillAnswerDataTable(document.querySelector('#answersTable > tbody'), questionParam.choices);
+    }
+
     let actions = document.createElement('div');
+    actions.appendChild(createButton(edit, 'Edit', 'glyphicon glyphicon-pencil'));
     actions.appendChild(createButton(remove, 'Remove', 'glyphicon glyphicon-trash'));
 
     let i =0;
-    tr.insertCell(i++).innerText = question.index;    
-    tr.insertCell(i++).innerText = question.time;
-    tr.insertCell(i++).innerText = question.question;
+    tr.insertCell(i++).innerText = questionParam.index;    
+    tr.insertCell(i++).innerText = questionParam.time;
+    tr.insertCell(i++).innerText = questionParam.question;
     tr.insertCell(i++).appendChild(actions);
-  }
-
-  let loadQuestion = (questionParam) => {
-      document.querySelector('#time').value = questionParam.time;
-      document.querySelector('#question').value = questionParam.question;
-      question.choices = questionParam.choices;
-
-      fillAnswerDataTable(document.querySelector('#answersTable'), question.choices);
   }
 
   let clearTable = (myNode) => {
@@ -139,6 +154,7 @@ function EditService() {
       addAnswerRow(item, domTbleBody);
     });
   }
+
 
   let addAnswerRow = (answer, domTbleBody) => {
       let tr = domTbleBody.insertRow();
