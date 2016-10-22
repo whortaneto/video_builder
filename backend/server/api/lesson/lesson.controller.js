@@ -25,9 +25,7 @@ exports.get = function(req, resp, next) {
 
 // Creates a new lesson in the DB.
 exports.create = function(req, resp, next) {
-    //console.log(JSON.stringify(req));
     Lesson.create(_.merge(req.body, {
-        //urlVideo: req.urlVideo
     })).then(lesson => {
         resp.status(201).send(lesson);
     }).catch(next);
@@ -35,6 +33,8 @@ exports.create = function(req, resp, next) {
 
 // Updates an existing lesson in the DB.
 exports.update = function(req, resp, next) {
+    console.log(" updater");
+    console.log(req.body);
     delete req.body._id;
     Lesson.findById(req.params.id).then(lesson => {
 
