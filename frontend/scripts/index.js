@@ -1,17 +1,15 @@
-const API_URL = "http://localhost:9000/api/lessons";
-
 window.onload = () => {
   loadLessons();
 }
 
-let loadLessons = (api) => {
+let loadLessons = () => {
   fetch(API_URL)
     .then(function(response) {
       return response.json();
     })
     .then(function(result) {
       fillDataTable(
-        document.getElementById('tbody'),
+        document.querySelector('tbody'),
         result
       );
     });
