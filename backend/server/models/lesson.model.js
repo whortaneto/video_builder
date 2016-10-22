@@ -10,6 +10,7 @@ var LessonSchema = new Schema({
     lastModifiedDtm: Date,
     urlVideo: {type: String, required: true},
       questions: [{
+        index: {type: Number, required: true},
         time: {type: Number, required: true},
         question: {type: String, required: true},
         choices: [{
