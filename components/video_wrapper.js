@@ -1,6 +1,6 @@
-const VideoBuilder = {};
+const CourseBuilder = {};
 
-VideoBuilder.wrapper = (function () {
+CourseBuilder.videoWrapper = (function () {
     const tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     tag.asyn = true;
@@ -13,6 +13,7 @@ VideoBuilder.wrapper = (function () {
         let timersListeners = {
             timers: [],
             callbacks: [],
+            view: []
         };
         let listenToEvents = false;
 
@@ -31,19 +32,20 @@ VideoBuilder.wrapper = (function () {
             _player.playVideo()
             if (!!listenToEvents) {
                 setInterval(() => {
-                    let index = timersListeners.timers.map(e => Math.round(e))
-                                    .indexOf(Math.round(_getCurrentTime()));
-                    if(index > -1) {
+                    let index = timersListeners.timers.map(e => Math.floor(e))
+                                    .indexOf(Math.floor(_getCurrentTime()));
+                    if(index > -1 && !!timersListeners.view[index]) {
                         timersListeners.callbacks[index]();
+                        timersListeners.view[index] = false;
                     }   
-                }, 1000)
+                }, 500)
             }
         }
 
         const _addTimeListener = (time, callback) => {
             timersListeners.timers.push(time);
             timersListeners.callbacks.push(callback);
-
+            timersListeners.view.push(true);
         };
 
         const _pauseVideo = () => _player.pauseVideo();
