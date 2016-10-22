@@ -25,6 +25,7 @@ exports.get = function(req, resp, next) {
 
 // Creates a new lesson in the DB.
 exports.create = function(req, resp, next) {
+    console.log(req.body);
     Lesson.create(_.merge(req.body, {
     })).then(lesson => {
         resp.status(201).send(lesson);
@@ -41,7 +42,7 @@ exports.update = function(req, resp, next) {
         if(!lesson) {
             throw new errors.NotFound('lesson_not_found')
         }
-        var updated = _.merge(lesson, req.body);
+        var updated = _.assign(lesson, req.body);
         updated.save()
     }).then(lesson => {
         resp.status(200).send(lesson);
