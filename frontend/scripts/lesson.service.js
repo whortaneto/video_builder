@@ -1,5 +1,5 @@
 function LessonService() {
-  const API_URL = "http://localhost:9000/api/lessons";
+  const API_URL = "http://4c-video-builder.tk:9000/api/lessons";
 
   this.save = (lesson) => {
 
