@@ -21,14 +21,17 @@ function EditService() {
     document.location.href = 'index.html';
   }
 
-  this.save = () => {
+  this.save = () => {    
     lesson.urlVideo = document.querySelector('#urlVideo').value;
     lessonService.save(lesson).then();
   }  
 
   this.addQuestion = () => {
+
+    let _id = document.querySelector('#_idQuestion').value === '' ? undefined : document.querySelector('#_idQuestion').value;
+
     let questionParam = {
-      _id: document.querySelector('#_idQuestion').value,
+      _id: _id,
       index: document.querySelector('#index').value,
       time: document.querySelector('#time').value,
       question: document.querySelector('#question').value,
@@ -44,8 +47,6 @@ function EditService() {
       lesson.questions.push(questionParam);
       addQuestionRow(questionParam, document.querySelector('#questionsTable > tbody'));
     } else {
-      //atualizar item do array
-
       let index;
       lesson.questions.forEach(item => {
         if (item._id === questionParam._id) {
@@ -154,7 +155,6 @@ function EditService() {
       addAnswerRow(item, domTbleBody);
     });
   }
-
 
   let addAnswerRow = (answer, domTbleBody) => {
       let tr = domTbleBody.insertRow();
