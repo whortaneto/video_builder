@@ -7,10 +7,16 @@ var Schema = mongoose.Schema;
 var LessonSchema = new Schema({
     _id: String,
     createdDtm: {type: Date, default: Date.now},
-    createdBy: String,
     lastModifiedDtm: Date,
-    lastModifiedBy: Date,
-    urlVideo: String
+    urlVideo: {type: String, required: true},
+      questions: [{
+        time: {type: Number, required: true},
+        question: {type: String, required: true},
+        choices: [{
+            text: {type: String, required: true},
+            isCorrect: {type: Boolean, required: true}
+        }]
+      }]
 }, {
     collection: 'lessons',
     versionKey: false
