@@ -1,4 +1,3 @@
-
 function LessonService() {
   const API_URL = "http://localhost:9000/api/lessons";
 
@@ -37,6 +36,13 @@ function LessonService() {
         return response.json();
       });
   }
+
+  this.delete = (id) => {
+    return fetch(API_URL+'/'+id, {
+      method: 'DELETE'
+    });
+  }
+
 }
 
 const lessonService = new LessonService();

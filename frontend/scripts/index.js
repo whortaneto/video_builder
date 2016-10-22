@@ -19,7 +19,7 @@ let fillDataTable = (domTbleBody, data) => {
 
     let edit = () => document.location.href = 'edit.html?lesson=' + item._id;
 
-    let remove = () => document.location.href = 'edit.html?lesson=' + item._id;
+    let remove = () => lessonService.delete(item._id).then(()=>tr.remove());
 
     var actions = document.createElement('div');
     actions.appendChild(createButton(edit, 'Edit', 'glyphicon glyphicon-pencil'));
