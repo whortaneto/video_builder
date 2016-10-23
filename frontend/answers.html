@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <title>Video Builder - Answers</title>
 
-    <link rel="stylesheet" type="text/css" href="styles/index.css">
-
     <script type="text/javascript" src="scripts/answer/answer.service.js" ></script>
     <script type="text/javascript" src="scripts/answer/answer.js" ></script>
     <script type="text/javascript" src="scripts/components.js" ></script>
 
 </head>
 <body>
-    <button onclick="add()">Add</button>
-    <table id="lessonsTable" style="width:100%" class="datatable">
+
+    <table id="answersTable" style="width:100%" class="datatable">
         <tr>
-            <th>Id</th>
-            <th>URL</th>
-            <th>Actions</th>
+            <th>User</th>
+            <th>Lesson Id</th>
+            <th>Question</th>
         </tr>
         <tbody id="tbody">
 
         </tbody>
     </table>
+
+    <button onclick="answerPage.back()">Back</button>
 </body>
 </html>

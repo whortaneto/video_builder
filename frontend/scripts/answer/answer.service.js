@@ -8,6 +8,13 @@ function AnswerService() {
       });
   }
 
+  this.getByLesson = (lessonId) => {
+    return fetch(API_URL+'/byLesson/'+lessonId)
+      .then(function(response) {
+        return response.json();
+      });
+  }
+
   this.get = (id) => {
     return fetch(API_URL+'/'+id)
       .then(function(response) {
@@ -17,4 +24,4 @@ function AnswerService() {
 
 }
 
-const lessonService = new LessonService();
+const answerService = new AnswerService();

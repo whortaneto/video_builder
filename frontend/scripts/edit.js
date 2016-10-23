@@ -1,19 +1,19 @@
-function EditService() {
+function EditPage() {
 
   let answer = {
-    "text": "XXX",
-    "isCorrect": true
+    'text': 'XXX',
+    'isCorrect': true
   }
 
   let question = {
-    "time": 0,
-    "question": "XXXXXXXXXXXX",
-    "choices": []
+    'time': 0,
+    'question': '',
+    'choices': []
   }
 
   let lesson = {
-    "urlVideo": "XXXXXXXXXXXXXXX",
-    "questions": []
+    'urlVideo': '',
+    'questions': []
   };
 
   this.back = () => {
@@ -203,4 +203,4 @@ function EditService() {
   }
 }
 
-const editService = new EditService();
+const editPage = new EditPage();
