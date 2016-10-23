@@ -21,12 +21,18 @@ let fillDataTable = (domTbleBody, data) => {
 
     let remove = () => lessonService.delete(item._id).then(()=>tr.remove());
 
+    let preview = () => document.location.href = 'preview.html?preview=' + item._id;
+
+
     let actions = document.createElement('div')
     actions.style = 'padding: 4px;'; 
     let button = primaryButton(edit, 'Edit')
     button.style = 'margin: 0 4px 0 0';
     actions.appendChild(button)
     button = dangerButton(remove, 'Remove')
+    actions.appendChild(button)
+
+    button = dangerButton(preview, 'Preview')
     actions.appendChild(button)
     
     let i =0;

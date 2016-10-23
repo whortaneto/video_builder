@@ -37,7 +37,7 @@ function EditService() {
     }
 
     if (questionParam.time == '' || questionParam.question == '' || questionParam.choices.length == 0) {
-      alert('Question is required. Cade o Carlos?');
+      alert('Question is required.');
       return;
     }
 
@@ -54,7 +54,7 @@ function EditService() {
       }
     }
     if (!correctAnswer) {
-      alert('It`s necessary some one correct answer. Cade o Carlos?');
+      alert('It`s necessary some one correct answer.');
       return;
     }    
 
@@ -87,14 +87,14 @@ function EditService() {
     }
 
     if (answer.text == '') {
-      alert('Answer is required. Cade o Carlos?');
+      alert('Answer is required.');
       return;
     }
 
     if (answer.isCorrect) {
       for (item in question.choices) {
         if (question.choices[item].isCorrect) {
-           alert('It`s possible only one answer correct. Cade o Carlos?');
+           alert('It`s possible only one answer correct.');
            return;     
         }
       }
