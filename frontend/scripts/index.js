@@ -21,10 +21,14 @@ let fillDataTable = (domTbleBody, data) => {
 
     let remove = () => lessonService.delete(item._id).then(()=>tr.remove());
 
-    var actions = document.createElement('div');
-    actions.appendChild(createButton(edit, 'Edit', 'glyphicon glyphicon-pencil'));
-    actions.appendChild(createButton(remove, 'Remove', 'glyphicon glyphicon-trash'));
-
+    let actions = document.createElement('div')
+    actions.style = 'padding: 4px;'; 
+    let button = primaryButton(edit, 'Edit')
+    button.style = 'margin: 0 4px 0 0';
+    actions.appendChild(button)
+    button = dangerButton(remove, 'Remove')
+    actions.appendChild(button)
+    
     let i =0;
     tr.insertCell(i++).innerText = item._id;
     tr.insertCell(i++).innerText = item.urlVideo;
