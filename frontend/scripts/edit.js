@@ -23,7 +23,7 @@ function EditService() {
 
   this.save = () => {    
     lesson.urlVideo = document.querySelector('#urlVideo').value;
-    lessonService.save(lesson).then();
+    lessonService.save(lesson).then(()=>this.back());
   }  
 
   this.addQuestion = () => {
