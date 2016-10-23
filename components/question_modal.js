@@ -6,8 +6,10 @@ CourseBuilder.questionModal = (function () {
 		let container = null;
 		let questionContainer = null;
 		let answerContainer = null;
-		let closeBtn = null;
+		let content = null;
+		let sendBtn = null;
 		let value = null;
+		let errorDiv = null;
 
 		const _buildModal = () => {
 			if (!!container) {
@@ -24,42 +26,41 @@ CourseBuilder.questionModal = (function () {
 				container.style.backgroundColor = "rgb(0,0,0)";
 				container.style.backgroundColor = "rgba(0,0,0,0.4)";
 
-				const content = document.createElement('div');
+				content = document.createElement('div');
 				content.className = 'modal-content';
 				content.style.backgroundColor = "#fefefe";
 				content.style.margin = "auto";
 				content.style.padding = "20px";
 				content.style.border = "1px solid #888";
 				content.style.width = "80%";
+				content.style.height = "20%";
 
-
-
-				closeBtn = document.createElement('span');
-				closeBtn.addEventListener('click', () => container.style.display = "none");
-
-				closeBtn.className = 'close';
-				closeBtn.style.color = "#aaaaaa";
-				closeBtn.style.float = "right";
-				closeBtn.style.fontSize = "28px";
-				closeBtn.style.fontWeight = "bold";
-
-				closeBtn.appendChild(document.createTextNode('x'));
 
 				questionContainer = document.createElement('p');
 				answerContainer = document.createElement('div');
 				answerContainer.style.display = "flex";
 				answerContainer.style.flexDirection = "column";
 
-				content.appendChild(closeBtn);
+				sendBtn = document.createElement('span');
+
+				sendBtn.className = 'send';
+				sendBtn.style.color = "#aaaaaa";
+				sendBtn.style.float = "right";
+				sendBtn.style.fontSize = "28px";
+				sendBtn.style.fontWeight = "bold";
+
+				sendBtn.appendChild(document.createTextNode('Send'));
+
 				content.appendChild(questionContainer);
 				content.appendChild(answerContainer);
+				content.appendChild(sendBtn);
 
 				container.appendChild(content);
 			}
 
 		}
 
-		const _setValue = ({question, choices, index}, callback) => {
+		const _setValue = ({question, choices, index}) => {
 			if(!!questionContainer) {
 				value  = {question, choices, index};
 
@@ -78,18 +79,11 @@ CourseBuilder.questionModal = (function () {
 					choiceRadio.name = "choices";
 					choiceRadio.value = choices[i].text;
 
-					if (choices[i].isCorrect && !!callback) {
-						choiceRadio.addEventListener("change", () => {
-							callback();
-						})
-					}
 					choiceLabel.appendChild(choiceRadio);
 					answerContainer.appendChild(choiceLabel);
 				}
 			}
 		};
-
-		const _getValue = () => value;
 
 		const _cleanQuestion = () => {
 			while (questionContainer.firstChild) {
@@ -100,9 +94,33 @@ CourseBuilder.questionModal = (function () {
 			}
 		}
 
+		const _getAnswer = () => {
+			const radios = answerContainer.querySelectorAll("input");
+			const len = radios.length;
+			for (let i = 0; i < len; i++) {
+				if (!!radios[i].checked) {
+					return radios[i].value;
+				}
+			}
+		}
+
+		const _addError = error => {
+			if (!!errorDiv) {
+				errorDiv.remove();
+			}
+			errorDiv = document.createElement('div');
+
+			errorDiv.appendChild(document.createTextNode(error));
+			content.insertBefore(errorDiv, content.firstChild);
+		}
+
+		const _getValue = () => value;
+
 		const _show = () => container.style.display = "block";
 
-		const _onClose = func => !!closeBtn ? closeBtn.addEventListener('click', func) : '';
+		const _hide  = () => container.style.display = "none";
+
+		const _onSend = func => !!sendBtn ? sendBtn.addEventListener('click', () => func(_getAnswer())) : '';
 
 		const _setQuestion = question => questions.push(question);
 
@@ -114,9 +132,11 @@ CourseBuilder.questionModal = (function () {
 			setValue: _setValue,
 			getValue: _getValue,
 			show: _show,
-			onClose: _onClose,
+			hide: _hide,
+			onSend: _onSend,
 			setContainer: _setContainer,
 			render: _render,
+			addError: _addError,
 		}
 
 	}
