@@ -22,8 +22,8 @@ Import our JS .:
 <Script src = "video_client.js"> </ script>
 ```
 
-These files can be founded in:
-[Componentes folder](https://github.com/4C-Team/video_builder/tree/master/components)
+These files can be founded in
+[components folder](https://github.com/4C-Team/video_builder/tree/master/components)
 
 Add this tag in your html:
 ```
