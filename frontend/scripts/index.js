@@ -21,19 +21,27 @@ let fillDataTable = (domTbleBody, data) => {
 
     let remove = () => lessonService.delete(item._id).then(()=>tr.remove());
 
-    let actions = document.createElement('div')
-    actions.style = 'padding: 4px;'; 
-    let button = primaryButton(edit, 'Edit')
-    button.style = 'margin: 0 4px 0 0';
-    actions.appendChild(button)
-    button = dangerButton(remove, 'Remove')
-    actions.appendChild(button)
-    
+    let viewAnswers = () => document.location.href = 'answers.html?lesson=' + item._id;
+
+    let actions = document.createElement('div');
+    actions.style = 'padding: 4px;';
+
+    let editButton = primaryButton(edit, 'Edit');
+    editButton.style = 'margin: 0 4px 0 0';
+    actions.appendChild(editButton);
+
+    let answersButton = primaryButton(viewAnswers, 'Answers');
+    answersButton.style = 'margin: 0 4px 0 0';
+    actions.appendChild(answersButton);
+
+    let removeButton = dangerButton(remove, 'Remove');
+    removeButton.style = 'margin: 0 4px 0 0';
+    actions.appendChild(removeButton);
+
     let i =0;
     tr.insertCell(i++).innerText = item._id;
     tr.insertCell(i++).innerText = item.urlVideo;
     tr.insertCell(i++).appendChild(actions);
-
   });
 }
 
