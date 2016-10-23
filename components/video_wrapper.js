@@ -17,7 +17,7 @@ CourseBuilder.videoWrapper = (function () {
         };
         let listenToEvents = false;
 
-        const container = document.querySelector('videoCourse');
+        const container = document.querySelector('videoView');
         container.id = 'videoContainer';
         const playerDiv = document.createElement('div');
         playerDiv.id = 'videoPlayer';

@@ -60,7 +60,7 @@ CourseBuilder.questionModal = (function () {
 
 		}
 
-		const _setValue = ({question, choices, index}, callback) => {
+		const _setValue = ({question, choices, index}) => {
 			if(!!questionContainer) {
 				value  = {question, choices, index};
 
@@ -79,11 +79,6 @@ CourseBuilder.questionModal = (function () {
 					choiceRadio.name = "choices";
 					choiceRadio.value = choices[i].text;
 
-					if (choices[i].isCorrect && !!callback) {
-						choiceRadio.addEventListener("change", () => {
-							callback();
-						})
-					}
 					choiceLabel.appendChild(choiceRadio);
 					answerContainer.appendChild(choiceLabel);
 				}

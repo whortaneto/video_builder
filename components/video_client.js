@@ -6,7 +6,7 @@ CourseBuilder.video = (function () {
         let questions = [];
         let answerAttempts = [];
         let modalContainer = document.createElement('div');
-        let dataSource = "http://4c-video-builder.tk:9000/api/lessons/";
+        let dataSource = "http://4c-video-builder.tk:9000/api/";
 
         let modal = null;
         modal = CourseBuilder.questionModal();
@@ -16,32 +16,22 @@ CourseBuilder.video = (function () {
             let answer = modal.getValue().choices
                 .filter(item => item.text === value)[0];
 
-            const addAttempt = () => {
-                let answerAttempt = {
-                    attempt: answerAttempts.length + 1,
-                    text: answer.text,
-                    isCorrect: answer.isCorrect
-                }
-
-                answerAttempts.push(answerAttempt);
-            }
-
             if(!!answer) {
-                addAttempt();
+                _addAttempt(answer);
                 if(answer.isCorrect) {
                     video.playVideo();
                     modal.hide();
-                    modal.setValue(_next());
                     _sendAnswerAttempts();
+                    modal.setValue(_next());
                 } else {
-                    modal.addError("wrong answer");
+                    modal.addError("Wrong answer");
                 }
             } else {
                 modal.addError("Select one option");
             }
         });
 
-        fetch(dataSource + key).then(response => {
+        fetch(dataSource + "lessons/" + key).then(response => {
                 return response.json();
         }).then(lesson => {
             questions = lesson.questions;
@@ -54,26 +44,46 @@ CourseBuilder.video = (function () {
                 video.getContainer().appendChild(modalContainer);
             });
 
-            questions[0].index = 1;
-
-            questions[1].index = 2;
-
-            questions[2].index = 3;
+            let index = 1;
+            questions.map(item => !item.index ? item.index = index++ : '');
 
             modal.setValue(questions[0]);
             _setListeners();
         });
 
         const _sendAnswerAttempts = () => {
-            var answer =   {
-                user: "levy",
+            let users = ["Aurindo", "Carlos", "Levy", "Wagner"];
+
+            let answer =   {
+                user: users[Math.floor(Math.random()*users.length)],
                 lesson: key,
                 question: modal.getValue().question,
                 attempts: answerAttempts
             }
 
-            console.log(answer);
-        };        
+            let requestBody = JSON.stringify(answer);
+
+            fetch(dataSource + "answers", {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Content-Length': requestBody.length
+                }),
+                body: requestBody
+            });
+            
+            answerAttempts = [];
+        };     
+
+        const _addAttempt = (answer) => {
+            let answerAttempt = {
+                attempt: answerAttempts.length + 1,
+                text: answer.text,
+                isCorrect: answer.isCorrect
+            }
+
+            answerAttempts.push(answerAttempt);
+        }   
 
         const _next = () => questions.filter(element => element.index === modal.getValue().index + 1)[0];
 
