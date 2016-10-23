@@ -7,7 +7,7 @@ One iteractive video builder that help our course creators easily create and off
 - You can create one lesson, based in one Youtube video
 - Your lesson can have many stop times to ask custom questions to the user
 - All user answers are saved in our backend
-- Deployed in Amazon AWS [http://4c-video-builder.tk/edit.html](http://4c-video-builder.tk)   
+- Deployed in Amazon AWS [http://4c-video-builder.tk/](http://4c-video-builder.tk)   
 - Backend with Node JS (Express) and MongoDB
 - Pure JS Frontend
 - Easy to integrate with your our site 
