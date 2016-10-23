@@ -1,39 +1,39 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var shortid = require('shortid');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose'),
+    shortid = require('shortid'),
+    Schema = mongoose.Schema
 
-var LessonSchema = new Schema({
-    _id: String,
-    createdDtm: {type: Date, default: Date.now},
-    lastModifiedDtm: Date,
-    urlVideo: {type: String, required: true},
-      questions: [{
-        time: {type: Number, required: true},
-        question: {type: String, required: true},
-        choices: [{
-            text: {type: String, required: true},
-            isCorrect: {type: Boolean, required: true}
-        }]
+let LessonSchema = new Schema({
+  _id: String,
+  createdDtm: {type: Date, default: Date.now},
+  lastModifiedDtm: Date,
+  index: {type: Number, required: true},
+  urlVideo: {type: String, required: true},
+    questions: [{
+      time: {type: Number, required: true},
+      question: {type: String, required: true},
+      choices: [{
+        text: {type: String, required: true},
+        isCorrect: {type: Boolean, required: true}
       }]
+    }]
 }, {
-    collection: 'lessons',
-    versionKey: false
-});
+  collection: 'lessons',
+  versionKey: false
+})
 
 LessonSchema.pre('save', function(next) {
-    if (this.isNew && !this._id) {
-        this._id = shortid();
-    }
-    this.lastModifiedDtm = new Date();
-    next();
-});
+  if (this.isNew && !this._id) {
+    this._id = shortid()
+  }
+  this.lastModifiedDtm = new Date()
+  next()
+})
 
 LessonSchema.pre('update', function(next) {
+  this.lastModifiedDtm = new Date()
+  next()
+})
 
-    this.lastModifiedDtm = new Date();
-    next();
-});
-
-module.exports = mongoose.model('Lesson', LessonSchema);
+module.exports = mongoose.model('Lesson', LessonSchema)

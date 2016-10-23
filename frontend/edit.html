@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Video Builder</title>
+
+        <link rel="stylesheet" type="text/css" href="styles/edit.css">
+
+        <script type="text/javascript" src="scripts/lesson.service.js" ></script>
+        <script type="text/javascript" src="scripts/edit.js" ></script>
+        <script type="text/javascript" src="scripts/components.js" ></script>
+
+    </head>
+
+    <body>
+        Id<br/>
+        <input readonly id="_id" /><br/>
+        URL<br/> 
+        <input id="urlVideo" /><br/>
+
+        <br/><br/>
+        <div style="border:1px solid black;">
+            <input id="_idQuestion" type="hidden"/><br/>            
+            Index<br/>
+            <input id="index" type="number"/><br/>
+            Time<br/>
+            <input id="time" type="number"/><br/>
+            Question<br/>
+            <input id="question" type="text"/><br/>
+
+            <div style="border:1px solid black;">
+                Answer<br/>
+                <input id="answer" type="text"/><br/>
+                Is Correct?<br/>
+                <input id="isCorrect" type="checkbox"/><br/>
+                <button onclick="editService.addAnswer()" >Add Answer</button>
+                <br/>
+
+                <table id="answersTable" style="width:100%" class="datatable">
+                    <thead>
+                        <th>Answer</th>
+                        <th>Correct</th>
+                    </thead>
+                    <tbody id="tbody">
+
+                    </tbody>
+                </table>                 
+            </div>            
+
+            <button onclick="editService.addQuestion()">Add Question</button>
+
+            <br/>
+
+            <table id="questionsTable" style="width:100%" class="datatable">
+                <thead>
+                    <th>Index</th>
+                    <th>Time</th>
+                    <th>Question</th>
+                    <th>Action</th>
+                </thead>
+                <tbody id="tbody">
+
+                </tbody>
+            </table>        
+        </div
+
+        <br/>
+        <br/>
+        <button onclick="editService.save()">Save</button>
+        <button onclick="editService.back()">Back</button>
+    </body>
+</html>

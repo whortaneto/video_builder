@@ -1,30 +1,30 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var crypto = require('crypto');
-var Hashids = require('hashids');
-var hashids = new Hashids('users are the best', 5, '0123456789abcdhf');
-var authTypes = ['github', 'twitter', 'facebook', 'google'];
-var pad = require('pad');
+const mongoose = require('mongoose'),
+  Schema = mongoose.Schema,
+  crypto = require('crypto'),
+  Hashids = require('hashids'),
+  hashids = new Hashids('users are the best', 5, '0123456789abcdhf'),
+  authTypes = ['github', 'twitter', 'facebook', 'google'],
+  pad = require('pad')
 
-var UserSchema = new Schema({
-    name: String,
-    username: String,
-    email: {type: String, lowercase: true},
-    role: {
-        type: String,
-        default: 'user'
-    },
-    accountType: {
-        type: String,
-        default: 'free'
-    },
-    hashedPassword: String,
-    provider: String,
-    salt: String,
-    local: {}
-});
+const UserSchema = new Schema({
+  name: String,
+  username: String,
+  email: {type: String, lowercase: true},
+  role: {
+    type: String,
+    default: 'user'
+  },
+  accountType: {
+    type: String,
+    default: 'free'
+  },
+  hashedPassword: String,
+  provider: String,
+  salt: String,
+  local: { }
+})
 
 /**
  * Virtuals
@@ -38,7 +38,7 @@ UserSchema
     })
     .get(function () {
         return this._password;
-    });
+    })
 
 // Public profile information
 UserSchema

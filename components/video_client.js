@@ -53,7 +53,6 @@ CourseBuilder.video = (function () {
                 video.addTimeListener(questions[i].time, _timeListener);
             }
         }
-        
         return {}
     }
 })();

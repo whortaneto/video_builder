@@ -46,6 +46,7 @@ CourseBuilder.videoWrapper = (function () {
                                     .indexOf(Math.floor(_getCurrentTime()));
                     if(index > -1 && !!timersListeners.view[index]) {
                         timersListeners.callbacks[index]();
+                        timersListeners.view[index - 1] = false;
                         timersListeners.view[index] = false;
                     }   
                 }, 500)
