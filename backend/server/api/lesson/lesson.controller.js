@@ -31,13 +31,13 @@ exports.create = (req, resp, next) => {
 }
 
 // Updates an existing lesson in the DB.
-exports.update = (req, resp) => {
+exports.update = (req, resp, next) => {
   delete req.body._id
   Lesson.findById(req.params.id).then(lesson => {
     if (!lesson) {
       throw new errors.NotFound('lesson_not_found')
     }
-    let updated = _.assing(lesson, req.body)
+    let updated = _.assign(lesson, req.body)
     updated.save()
   }).then(lesson => {
     resp.status(200).send(lesson)
