@@ -8,14 +8,12 @@ let AnswerSchema = new Schema({
   _id: String,
   user: {type: String},
   lesson: {type: String},
-    questions: [{
-      question: {type: String, required: true},
-      attempts: [{
-        attempt: {type: Number, required: true},
-        text: {type: String, required: true},
-        isCorrect: {type: Boolean, required: true}
-      }]
-    }]
+  question: {type: String, required: true},
+  attempts: [{
+    attempt: {type: Number, required: true},
+    text: {type: String, required: true},
+    isCorrect: {type: Boolean, required: true}
+  }]
 }, {
   collection: 'answers',
   versionKey: false
