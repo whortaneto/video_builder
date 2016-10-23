@@ -35,13 +35,30 @@ function EditService() {
       index: document.querySelector('#index').value,
       time: document.querySelector('#time').value,
       question: document.querySelector('#question').value,
-      choices: question.choices 
+      choices: question.choices.filter(() => true)
     }
 
     if (questionParam.time == '' || questionParam.question == '' || questionParam.choices.length == 0 || questionParam.index < 1) {
       alert('Question is required. Cade o Carlos?');
       return;
     }
+
+    if (questionParam.choices.length < 2 || questionParam.choices.length > 6) {
+      alert('It\'s necessary have between 2 and 6 answers.');
+      return; 
+    }
+
+    let correctAnswer = false;
+    for (item in questionParam.choices) {
+      if (questionParam.choices[item].isCorrect) {
+        correctAnswer = true;
+        break;
+      }
+    }
+    if (!correctAnswer) {
+      alert('It`s necessary some one correct answer. Cade o Carlos?');
+      return;
+    }    
 
     if (questionParam._id == undefined || questionParam._id == '') {
       lesson.questions.push(questionParam);
@@ -60,6 +77,7 @@ function EditService() {
 
     document.querySelector('#time').value = ''
     document.querySelector('#question').value = '';
+    question.choices = [];
 
     clearTable(document.querySelector('#answersTable > tbody'));
   }
@@ -67,12 +85,21 @@ function EditService() {
   this.addAnswer = () => {
     let answer = {
       text: document.querySelector('#answer').value,
-      isCorrect: document.querySelector('#isCorrect').value
+      isCorrect: document.querySelector('#isCorrect').checked
     }
 
-    if (answer.text == '' || answer.isCorrect == '') {
+    if (answer.text == '') {
       alert('Answer is required. Cade o Carlos?');
       return;
+    }
+
+    if (answer.isCorrect) {
+      for (item in question.choices) {
+        if (question.choices[item].isCorrect) {
+           alert('It`s possible only one answer correct. Cade o Carlos?');
+           return;     
+        }
+      }
     }
 
     question.choices.push(answer);
@@ -90,14 +117,14 @@ function EditService() {
     }
   }
 
-  let loadLesson = (id) => {
+  const loadLesson = (id) => {
     lessonService.get(id)
       .then(function(result) {
         fillInputs(result);
       });
   }
 
-  let fillInputs = (data) => {
+  const fillInputs = (data) => {
     lesson = data;
     document.querySelector('#_id').value = lesson._id;
     document.querySelector('#urlVideo').value = lesson.urlVideo;
@@ -105,23 +132,23 @@ function EditService() {
     fillQuestionDataTable(document.querySelector('#questionsTable'), lesson.questions);
   }
 
-  let fillQuestionDataTable = (domTbleBody, data) => {
+  const fillQuestionDataTable = (domTbleBody, data) => {
     data.forEach(item => {
       addQuestionRow(item, domTbleBody);
     });
   }
 
-  let addQuestionRow = (questionParam, domTbleBody) => {
+  const addQuestionRow = (questionParam, domTbleBody) => {
     let tr = domTbleBody.insertRow();
     tr.align = 'center';
 
-    let remove = () => {
+    const remove = () => {
       let index = lesson.questions.indexOf(questionParam);
       lesson.questions.splice(index, 1);
       tr.remove();
     };
 
-    let edit = () => {
+    const edit = () => {
       document.querySelector('#_idQuestion').value = questionParam._id;
       document.querySelector('#index').value = questionParam.index;
       document.querySelector('#time').value = questionParam.time;
@@ -144,28 +171,38 @@ function EditService() {
     tr.insertCell(i++).appendChild(actions);
   }
 
-  let clearTable = (myNode) => {
+  const clearTable = (myNode) => {
     while (myNode.firstChild) { 
       myNode.firstChild.remove();
     }
   }
 
-  let fillAnswerDataTable = (domTbleBody, data) => {
+  const fillAnswerDataTable = (domTbleBody, data) => {
     data.forEach(item => {
       addAnswerRow(item, domTbleBody);
     });
   }
 
-  let addAnswerRow = (answer, domTbleBody) => {
+  const addAnswerRow = (answerParam, domTbleBody) => {
       let tr = domTbleBody.insertRow();
       tr.align = 'center';
 
+      const remove = () => {
+        let index = question.choices.indexOf(answerParam);
+        question.choices.splice(index, 1);
+        tr.remove();
+      };
+
+      let actions = document.createElement('div');
+      actions.appendChild(createButton(remove, 'Remove', 'glyphicon glyphicon-trash'));
+
       let i =0;
-      tr.insertCell(i++).innerText = answer.text;
-      tr.insertCell(i++).innerText = answer.isCorrect;
+      tr.insertCell(i++).innerText = answerParam.text;
+      tr.insertCell(i++).innerText = answerParam.isCorrect;
+      tr.insertCell(i++).appendChild(actions);
   }
 
-  let getURLParameter = (name) => {
+  const getURLParameter = (name) => {
     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
   }
 }
