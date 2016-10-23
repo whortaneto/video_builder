@@ -38,6 +38,10 @@ function AnswerPage() {
       domTbleBody = document.createElement('tbody'),
       domTbleHead = document.createElement('thead');
 
+    domTble.classList.add("table");
+    domTble.classList.add("table-bordered");
+    domTble.style = "margin: 4px";
+
     insertAttempsHeader(domTbleHead);
 
     attempts.forEach(attempt => {
