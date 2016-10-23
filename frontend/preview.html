@@ -2,20 +2,66 @@
 <html lang="en">
 <head>
     <title>Video Builder</title>
-
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/plugins/morris.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-    <videoView></videoView>
+<div class="container">
+        <input text="" id="previewId" type="hidden"/>
+    <!-- Portfolio Item Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Video Preview
+                <small>Lesson name</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
 
+    <!-- Portfolio Item Row -->
+    <div class="row">
+
+        <div class="col-md-8">
+            <videoView></videoView>
+        </div>
+
+        <div class="col-md-4">
+            <h3>Course Description</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
+            <h3>Lesson Details</h3>
+            <ul>
+                <li>Lorem Ipsum</li>
+                <li>Dolor Sit Amet</li>
+                <li>Consectetur</li>
+                <li>Adipiscing Elit</li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- /.row -->
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+            </div>
+        </div>
+        <!-- /.row -->
+    </footer>
+</div>
+    
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="libs/question_modal.js" ></script>
-    <script type="text/javascript" src="libs/video_client.js" ></script>
-    <script type="text/javascript" src="libs/video_wrapper.js" ></script>    
-</body>
-    <script>
-    CourseBuilder.video('390', '640', 'BJXGSccyg');    
+    <script type="text/javascript" src="libs/question_modal.js"></script>
+    <script type="text/javascript" src="libs/video_client.js"></script>
+    <script type="text/javascript" src="libs/video_wrapper.js"></script>
+        <script type="text/javascript" src="scripts/preview.js" ></script>
+    <script type="text/javascript">
+        CourseBuilder.video('500', '750', document.getElementById('previewId').value);    
     </script>
-
+</body>
 </html>
