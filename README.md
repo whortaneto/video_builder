@@ -16,24 +16,24 @@ One iteractive video builder that help our course creators easily create and off
 ### How to integrate 
 
 Import our JS .:
-´´´
+```
 <Script src = "video_wrapper.js"> </ script>
 <Script src = "question_modal.js"> </ script>
 <Script src = "video_client.js"> </ script>
-´´´
+```
 
 These files can be founded in:
 [Link to youtube video demo](https://github.com/4C-Team/video_builder/tree/master/components)
 
 Add this tag in your html:
-´´´
+```
 <VideoView> </ VideoView>
-´´´
+```
 
 Call our API in JS you to load one specific video:
-´´´
+```
 CourseBuilder.video ('390', '640', 'ryDeFvtJe');
-´´´
+```
 
 The key is ryDeFvtJe one previous saved lesson video.
 
