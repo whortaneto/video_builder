@@ -4,6 +4,7 @@ CourseBuilder.video = (function () {
     return function (height, width, key) {
         let video = null;
         let questions = [];
+        let answerAttempts = [];
         let modalContainer = document.createElement('div');
         let dataSource = "http://4c-video-builder.tk:9000/api/lessons/";
 
@@ -11,9 +12,31 @@ CourseBuilder.video = (function () {
         modal = CourseBuilder.questionModal();
         modal.setContainer(modalContainer);
         modal.render();
-        modal.onClose(function () {
-            video.playVideo();
-            modal.setValue(_next());
+        modal.onSend(function (value) {
+            let answer = modal.getValue().choices
+                .filter(item => item.text === value)[0];
+
+            const addAttempt = () => {
+                let answerAttempt = {
+                    attempt: answerAttempts.length + 1,
+                    text: answer.text,
+                    isCorrect: answer.isCorrect
+                }
+
+                answerAttempts.push(answerAttempt);
+            }
+
+            if(!!answer) {
+                addAttempt();
+                if(answer.isCorrect) {
+                    video.playVideo();
+                    modal.hide();
+                    modal.setValue(_next());
+                    _sendAnswerAttempts();
+                } else {
+                    modal.addError("wrong answer");
+                }
+            }
         });
 
         fetch(dataSource + key).then(response => {
@@ -28,6 +51,7 @@ CourseBuilder.video = (function () {
             video.onVideoReady(() => {
                 video.getContainer().appendChild(modalContainer);
             });
+
             questions[0].index = 1;
 
             questions[1].index = 2;
@@ -38,7 +62,16 @@ CourseBuilder.video = (function () {
             _setListeners();
         });
 
-        
+        const _sendAnswerAttempts = () => {
+            var answer =   {
+                user: "levy",
+                lesson: key,
+                question: modal.getValue().question,
+                attempts: answerAttempts
+            }
+
+            console.log(answer);
+        };        
 
         const _next = () => questions.filter(element => element.index === modal.getValue().index + 1)[0];
 
