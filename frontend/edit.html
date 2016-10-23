@@ -1,73 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Video Builder</title>
+<head>
+    <title>Video Builder</title>
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/plugins/morris.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-        <link rel="stylesheet" type="text/css" href="styles/edit.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-        <script type="text/javascript" src="scripts/lesson.service.js" ></script>
-        <script type="text/javascript" src="scripts/edit.js" ></script>
-        <script type="text/javascript" src="scripts/components.js" ></script>
+</head>
+<body>
+    <div id="wrapper">
 
-    </head>
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Video Builder</a>
+            </div>
+            
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> My Lessons</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="add()"><i class="fa fa-fw fa-table"></i> Add new Lesson</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
 
-    <body>
-        Id<br/>
-        <input readonly id="_id" /><br/>
-        URL<br/> 
-        <input id="urlVideo" /><br/>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Video Builder <small>My lessons</small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i> My Lessons
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-bar-table"></i> Edit
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label>Lesson #</label>
+                        <input readonly id="_id" class="form-control-static"></input>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label>Video Url</label>
+                        <input readonly id="urlVideo" class="form-control-static"></input>
+                      </div>
 
-        <br/><br/>
-        <div style="border:1px solid black;">
-            <input id="_idQuestion" type="hidden"/><br/>            
-            Index<br/>
-            <input id="index" type="number"/><br/>
-            Time<br/>
-            <input id="time" type="number"/><br/>
-            Question<br/>
-            <input id="question" type="text"/><br/>
+                      <div class="form-group">
+                          <label>Index</label>
+                          <input id="_idQuestion" type="hidden"/>
+                          <input id="index" type="number" class="form-control"/>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label>Time</label>
+                          <input id="time" type="number" class="form-control"/>
+                      </div>
 
-            <div style="border:1px solid black;">
-                Answer<br/>
-                <input id="answer" type="text"/><br/>
-                Is Correct?<br/>
-                <input id="isCorrect" type="checkbox"/><br/>
-                <button onclick="editService.addAnswer()" >Add Answer</button>
-                <br/>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Question</label>
+                            <input id="question" type="text" class="form-control"/>
+                            <br />
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                <h3 class="panel-title">Answers</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label>Answer</label>
+                                    <input id="answer" type="text" class="form-control"/>
+                                </div>
+                                <div class="form-group"> 
+                                    <label class="checkbox-inline">
+                                        <input id="isCorrect" type="checkbox" />
+                                        Is Correct?
+                                    </label>
+                                </div>
+                                <button class="btn btn-default" onclick="editService.addAnswer()" >Add Answer</button>
+                                <br /><br />
+                                <table id="answersTable" class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <th>Answer</th>
+                                        <th>Correct</th>
+                                        <th>Action</th>                        
+                                    </thead>
+                                    <tbody id="tbody">
+                                    </tbody>
+                                </table>
+                            </div> 
+                            </div>
+                        </div>
+                    </div>
 
-                <table id="answersTable" style="width:100%" class="datatable">
-                    <thead>
-                        <th>Answer</th>
-                        <th>Correct</th>
-                        <th>Action</th>                        
-                    </thead>
-                    <tbody id="tbody">
+                    <button class="btn btn-default" onclick="editService.addQuestion()">Add Question</button>
+                    <br /><br />
+                    <div class="form-group">
+                        <table id="questionsTable" class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Index</th> <th>Time</th> <th>Question</th> <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                    </div>
 
-                    </tbody>
-                </table>                 
-            </div>            
+                    <button type="submit" onclick="editService.save()" class="btn btn-default">Save</button>
+                    <button type="reset" onclick="editService.back()" class="btn btn-default">Cancel</button>
 
-            <button onclick="editService.addQuestion()">Add Question</button>
+                <!-- /.row -->
+                </div>
+            <!-- /.container-fluid -->
+            </div>
+        <!-- /#page-wrapper -->
+        </div>
+    <!-- /#wrapper -->
+    </div>
 
-            <br/>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
-            <table id="questionsTable" style="width:100%" class="datatable">
-                <thead>
-                    <th>Index</th>
-                    <th>Time</th>
-                    <th>Question</th>
-                    <th>Action</th>
-                </thead>
-                <tbody id="tbody">
-
-                </tbody>
-            </table>        
-        </div
-
-        <br/>
-        <br/>
-        <button onclick="editService.save()">Save</button>
-        <button onclick="editService.back()">Back</button>
-    </body>
+    <script type="text/javascript" src="scripts/lesson.service.js" ></script>
+    <script type="text/javascript" src="scripts/index.js" ></script>
+    <script type="text/javascript" src="scripts/edit.js" ></script>
+    <script type="text/javascript" src="scripts/components.js" ></script>
+</body>
 </html>
