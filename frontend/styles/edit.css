@@ -1,0 +1,45 @@
+.alert-box {
+    color:#555;
+    border-radius:10px;
+    font-family:Tahoma,Geneva,Arial,sans-serif;font-size:11px;
+    padding:10px 10px 10px 36px;
+    margin:10px;
+    text-align: center;
+}
+.alert-box span {
+    font-weight:bold;
+    text-transform:uppercase;
+}
+.notice {
+    background:#b0d25a no-repeat 10px 50%;
+    border:1px solid #8cb03e;
+}
+.mapDiv {
+    height: 80%;
+    width: 100%;
+}
+
+.grid {
+    margin: 10px;
+    width: 100%;
+    background:#b0d25a;
+}
+
+.datatable {
+    width: 100%;
+    border:1px solid #000000;
+}
+.datatable td {
+    cursor:pointer;
+    background:#FFFFFF;
+    border:1px solid #000000;
+}
+.datatable th {
+    background:#8cb03e;
+    border:1px solid #000000;
+    padding: 5px;
+}
+
+.clickedRow {
+    color:#008000;
+}
