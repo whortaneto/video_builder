@@ -20,36 +20,34 @@ CourseBuilder.questionModal = (function () {
 				container.style.paddingTop = "100px";
 				container.style.left = "0";
 				container.style.top = "0";
-				container.style.width = "100%";
-				container.style.height = "100%";
+				//container.style.width = "100%";
+				//container.style.height = "100%";
 				container.style.overflow = "auto";
-				container.style.backgroundColor = "rgb(0,0,0)";
-				container.style.backgroundColor = "rgba(0,0,0,0.4)";
+				//container.style.backgroundColor = "rgb(0,0,0)";
+				//container.style.backgroundColor = "rgba(0,0,0,0.4)";
 
 				content = document.createElement('div');
-				content.className = 'modal-content';
-				content.style.backgroundColor = "#fefefe";
+				content.classList.add('modal-content');
+				//content.style.backgroundColor = "#fefefe";
 				content.style.margin = "auto";
-				content.style.padding = "20px";
-				content.style.border = "1px solid #888";
-				content.style.width = "80%";
-				content.style.height = "20%";
+				//content.style.padding = "20px";
+				//content.style.border = "1px solid #888";
+				//content.style.width = "80%";
+				//content.style.height = "20%";
 
 
 				questionContainer = document.createElement('p');
 				answerContainer = document.createElement('div');
-				answerContainer.style.display = "flex";
-				answerContainer.style.flexDirection = "column";
+				
+				//answerContainer.style.display = "flex";
+				//answerContainer.style.flexDirection = "column";
 
-				sendBtn = document.createElement('span');
+				sendBtn = document.createElement('button');
 
-				sendBtn.className = 'send';
-				sendBtn.style.color = "#aaaaaa";
+				sendBtn.classList.add("btn");
+				sendBtn.classList.add("btn-default");
 				sendBtn.style.float = "right";
-				sendBtn.style.fontSize = "28px";
-				sendBtn.style.fontWeight = "bold";
-
-				sendBtn.appendChild(document.createTextNode('Send'));
+				sendBtn.innerText = 'Send';
 
 				content.appendChild(questionContainer);
 				content.appendChild(answerContainer);
@@ -71,6 +69,8 @@ CourseBuilder.questionModal = (function () {
 				let choiceRadio = null;
 				let choiceLabel = null;
 				for(let i = 0; i < len; i++) {
+					let itemContainer = document.createElement('div');
+					itemContainer.classList.add('form-group');
 					choiceLabel = document.createElement("label");
 					choiceLabel.innerText = choices[i].text;
 
@@ -78,9 +78,10 @@ CourseBuilder.questionModal = (function () {
 					choiceRadio.type = "radio";
 					choiceRadio.name = "choices";
 					choiceRadio.value = choices[i].text;
-
-					choiceLabel.appendChild(choiceRadio);
-					answerContainer.appendChild(choiceLabel);
+					
+					itemContainer.appendChild(choiceLabel);
+					itemContainer.appendChild(choiceRadio);
+					answerContainer.appendChild(itemContainer);
 				}
 			}
 		};
