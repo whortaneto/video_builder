@@ -4,11 +4,19 @@ const _ = require('lodash'),
   Answer = require('../../models/answer.model'),
   errors = require('rest-api-errors')
 
-// Get list of answers
+// Get list of answers by lesson
 exports.getAll = (req, resp, next) => {
     Answer.find().then(answers => {
     resp.status(200).send(answers)
   }).catch(next)
+}
+
+// Get list of answers by lesson
+exports.getByLesson = (req, resp, next) => {
+  Answer.find({'lesson': req.params.id}, undefined, function(err, someValue){
+    if(err) return next(err);
+      resp.status(200).send(someValue);
+  });
 }
 
 // Get a single answer
