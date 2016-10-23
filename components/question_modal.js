@@ -33,7 +33,7 @@ CourseBuilder.questionModal = (function () {
 				content.style.padding = "20px";
 				content.style.border = "1px solid #888";
 				content.style.width = "80%";
-				content.style.height = "15%";
+				content.style.height = "20%";
 
 
 				questionContainer = document.createElement('p');
@@ -110,7 +110,6 @@ CourseBuilder.questionModal = (function () {
 		}
 
 		const _addError = error => {
-			debugger;
 			if (!!errorDiv) {
 				errorDiv.remove();
 			}

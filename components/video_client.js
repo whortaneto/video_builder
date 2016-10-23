@@ -36,6 +36,8 @@ CourseBuilder.video = (function () {
                 } else {
                     modal.addError("wrong answer");
                 }
+            } else {
+                modal.addError("Select one option");
             }
         });
 
