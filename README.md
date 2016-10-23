@@ -23,7 +23,7 @@ Import our JS .:
 ```
 
 These files can be founded in:
-[Link to youtube video demo](https://github.com/4C-Team/video_builder/tree/master/components)
+[Componentes folder](https://github.com/4C-Team/video_builder/tree/master/components)
 
 Add this tag in your html:
 ```
