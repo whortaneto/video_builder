@@ -47,7 +47,7 @@ function IndexPage() {
     });
   }
 
-  let add = () => {
+  this.add = () => {
     document.location.href = 'edit.html';
   }
 
