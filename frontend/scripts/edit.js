@@ -6,7 +6,6 @@ function EditService() {
   }
 
   let question = {
-    "index": 1, 
     "time": 0,
     "question": "XXXXXXXXXXXX",
     "choices": []
@@ -32,13 +31,12 @@ function EditService() {
 
     let questionParam = {
       _id: _id,
-      index: document.querySelector('#index').value,
       time: document.querySelector('#time').value,
       question: document.querySelector('#question').value,
       choices: question.choices.filter(() => true)
     }
 
-    if (questionParam.time == '' || questionParam.question == '' || questionParam.choices.length == 0 || questionParam.index < 1) {
+    if (questionParam.time == '' || questionParam.question == '' || questionParam.choices.length == 0) {
       alert('Question is required. Cade o Carlos?');
       return;
     }
@@ -150,7 +148,6 @@ function EditService() {
 
     const edit = () => {
       document.querySelector('#_idQuestion').value = questionParam._id;
-      document.querySelector('#index').value = questionParam.index;
       document.querySelector('#time').value = questionParam.time;
       document.querySelector('#question').value = questionParam.question;   
 
@@ -165,7 +162,6 @@ function EditService() {
     actions.appendChild(createButton(remove, 'Remove', 'glyphicon glyphicon-trash'));
 
     let i =0;
-    tr.insertCell(i++).innerText = questionParam.index;    
     tr.insertCell(i++).innerText = questionParam.time;
     tr.insertCell(i++).innerText = questionParam.question;
     tr.insertCell(i++).appendChild(actions);
