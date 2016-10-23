@@ -3,9 +3,11 @@
 // Set default node environment to development
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
+
 const express = require('express'), 
   mongoose = require('mongoose'),
-  config = require('./config/environment')
+  config = require('./config/environment'),
+  cors = require('cors')
 
 // Connect to
 mongoose.Promise = global.Promise
@@ -16,6 +18,7 @@ if (config.seedDB) { require('./config/seed') }
 
 // Setup server
 const app = express()
+app.use(cors())
 const server = require('http').createServer(app)
 require('./config/express')(app)
 require('./routes')(app)

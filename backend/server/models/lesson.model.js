@@ -8,6 +8,7 @@ let LessonSchema = new Schema({
   _id: String,
   createdDtm: {type: Date, default: Date.now},
   lastModifiedDtm: Date,
+  index: {type: Number, required: true},
   urlVideo: {type: String, required: true},
     questions: [{
       time: {type: Number, required: true},
