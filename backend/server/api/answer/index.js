@@ -6,6 +6,7 @@ const express = require('express'),
 
 router.get('/', controller.getAll)
 router.get('/:id', controller.get)
+router.get('/byLesson/:id', controller.getByLesson)
 router.post('/', controller.create)
 router.patch('/:id', controller.update)
 router.delete('/:id', controller.destroy)
