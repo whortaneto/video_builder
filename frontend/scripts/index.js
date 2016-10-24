@@ -25,6 +25,8 @@ function IndexPage() {
 
       let viewAnswers = () => document.location.href = 'answers.html?lesson=' + item._id;
 
+      let previewVideo = () => document.location.href = 'preview.html?preview=' + item._id;
+
       let actions = document.createElement('div');
       actions.style = 'padding: 4px;';
 
@@ -35,6 +37,10 @@ function IndexPage() {
       let answersButton = primaryButton(viewAnswers, 'Answers');
       answersButton.style = 'margin: 0 4px 0 0';
       actions.appendChild(answersButton);
+
+      let previewButton = primaryButton(previewVideo, 'Preview');
+      previewButton.style = 'margin: 0 4px 0 0';
+      actions.appendChild(previewButton);
 
       let removeButton = dangerButton(remove, 'Remove');
       removeButton.style = 'margin: 0 4px 0 0';
